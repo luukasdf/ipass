@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Wie doet wat?</title>
+<link rel="stylesheet" type="text/css" href="Ipass/style.css">
+<style>
+.button {
+	background-color: #f1f1f1;
+	border: none;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	width: 40%;
+}
+
+.button:hover{
+    background-color: #555;
+    color: white;
+}
+</style>
+</head>
+<body>
+	<div id="frame">
+		<div id="banner">
+			<div id="welkom">
+				<br>
+				<label id="welkomsbericht"><b>Selecteer uw taak</b></label>
+			</div>
+		</div>
+		<div id="userinfo">
+			<div id="userinfdiv">
+				<label id="userinfoLAB"><b></b></label>
+			</div>
+			<div id="uitlogdiv">
+				<br>
+				<ul>
+					<li id="uitloggen"><a href="uitloggen.html">Uitloggen</a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<div id="navigation">
+			<ul>
+				<li><a href="Index.html">Home</a></li>
+				<li><a href="agenda.html">Agenda</a></li>
+				<li><a href="afdelsel.html">Afdeling selecteren</a></li>
+				<li><a href="taakaft.html">Taak aftekenen</a></li>
+				<li><a href="taaktoe.html">Taak toevoegen</a></li>
+				<li><a href="taakrui.html">Taak ruilen</a></li>
+				<li><a href="afdelmak.html">Afdeling maken</a></li>
+			</ul>
+		</div>
+		<div id="field"> <br>
+			<label id='aftekenTaken'><b>Taken die u kunt aftekenen:<br> </b></label>
+			<br>
+			<form>
+				<select id="taakID">
+				<option value="" disabled selected>Selecteer uw taak</option>
+				</select>
+			</form>
+			<br><br>
+			<input type="button" class="button" value="Teken af" id="verderBTN"> <br>
+
+		</div>
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+	<script src="Ipass/taakAFT.js"></script>
+	<script>
+		$("#verderBTN").click(function(){
+			//console.log($("#taakID").val());		
+			var uri = "restservices/huis/takenaftekenen/" + $("#taakID").val();
+		    $.ajax(uri, { 
+		        type: "put",  
+		        success: function(response) {
+		            $("#response").text("afgetekent!");
+		        },
+		        error: function(response) {
+		            $("#response").text("afgetekent!");
+		        }
+		        
+		    });
+		    alert("U heeft " + $("#taakID").text()+" afgetekent!");
+		    location.reload();
+		});
+	</script>
+	<script src="Ipass/basicScript.js"></script>
+	
+</body>
+</html>

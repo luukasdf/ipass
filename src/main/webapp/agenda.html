@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Wie doet wat?</title>
+<link rel="stylesheet" type="text/css" href="Ipass/style.css">
+<head>
+<style>
+table {
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	height: 100%;
+	display: block;
+	overflow-x: auto;
+}
+
+td, th {
+	border: 1px solid #f1f1f1;
+	text-align: left;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #f1f1f1;
+}
+
+#tableLeft {
+	background-color: white;
+}
+
+#agendaHeader {
+	display: block;
+	font-size: 3vw;
+	width: 100%;
+	height: 100%;
+	font-family: Arial, Helvetica, sans-serif;
+}
+</style>
+</head>
+<body>
+	<div id="frame">
+		<div id="banner">
+			<div id="welkom">
+				<br> <label id="welkomsbericht"><b>Agenda
+						overzicht, Uw taken deze week:</b></label>
+			</div>
+		</div>
+		<div id="userinfo">
+			<div id="userinfdiv">
+				<label id="userinfoLAB"><b></b></label>
+			</div>
+			<div id="uitlogdiv">
+				<br>
+				<ul>
+					<li id="uitloggen"><a href="uitloggen.html">Uitloggen</a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<div id="navigation">
+			<ul>
+				<li><a href="Index.html">Home</a></li>
+				<li><a href="agenda.html">Agenda</a></li>
+				<li><a href="afdelsel.html">Afdeling selecteren</a></li>
+				<li><a href="taakaft.html">Taak aftekenen</a></li>
+				<li><a href="taaktoe.html">Taak toevoegen</a></li>
+				<li><a href="taakrui.html">Taak ruilen</a></li>
+				<li><a href="afdelmak.html">Afdeling maken</a></li>
+			</ul>
+		</div>
+		<div id="field">
+			<div id="agendahead">
+				<label id="agendaHeader"></label>
+			</div>
+			<div id="agendatable">
+				<table>
+					<tr>
+						<th></th>
+						<th>Maandag</th>
+						<th>Dinsdag</th>
+						<th>Woensdag</th>
+						<th>Donderdag</th>
+						<th>Vrijdag</th>
+						<th>Zaterdag</th>
+						<th>Zondag</th>
+					</tr>
+					<tr id="tableOchtend">
+						<td id="tableLeft"><b>Ochtend</b></td>
+						<td><label id='maandagOchtend'></label></td>
+						<td><label id='dinsdagOchtend'></label></td>
+						<td><label id='woensdagOchtend'></label></td>
+						<td><label id='donderdagOchtend'></label></td>
+						<td><label id='vrijdagOchtend'></label></td>
+						<td><label id='zaterdagOchtend'></label></td>
+						<td><label id='zondagOchtend'></label></td>
+					</tr>
+					<tr id="tableMiddag">
+						<td id="tableLeft"><b>Middag</b></td>
+						<td><label id='maandagMiddag'></label></td>
+						<td><label id='dinsdagMiddag'></label></td>
+						<td><label id='woensdagMiddag'></label></td>
+						<td><label id='donderdagMiddag'></label></td>
+						<td><label id='vrijdagMiddag'></label></td>
+						<td><label id='zaterdagMiddag'></label></td>
+						<td><label id='zondagMiddag'></label></td>
+					</tr>
+					<tr id="tableAvond">
+						<td id="tableLeft"><b>Avond</b></td>
+						<td><label id='maandagAvond'></label></td>
+						<td><label id='dinsdagAvond'></label></td>
+						<td><label id='woensdagAvond'></label></td>
+						<td><label id='donderdagAvond'></label></td>
+						<td><label id='vrijdagAvond'></label></td>
+						<td><label id='zaterdagAvond'></label></td>
+						<td><label id='zondagAvond'></label></td>
+					</tr>
+				</table>
+			</div>
+			<div id="agendacomment"></div>
+		</div>
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+	<script src="Ipass/AgendaInladen.js"></script>
+	<script src="Ipass/basicScript.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Wie doet wat?</title>
+<link rel="stylesheet" type="text/css" href="Ipass/style.css">
+<style>
+#afd1{
+
+}
+</style>
+
+</head>
+<body>
+	<div id="frame">
+		<div id="banner">
+			<div id="welkom"><br><label id="welkomsbericht"></label></div>
+		</div>
+		<div id="userinfo"> 
+			<div id="userinfdiv"><label id="userinfoLAB"><b></b></label></div>
+			<div id="uitlogdiv">
+			<br>
+			<ul>
+				<li id="uitloggen"><a href="uitloggen.html">Uitloggen</a></li>
+			</ul></div>
+		
+		</div>
+		
+		<div id="navigation">
+			<ul>
+				<li><a href="Index.html">Home</a></li>
+				<li><a href="agenda.html">Agenda</a></li>
+				<li><a href="afdelsel.html">Afdeling selecteren</a></li>
+				<li><a href="taakaft.html">Taak aftekenen</a></li>
+				<li><a href="taaktoe.html">Taak toevoegen</a></li>
+				<li><a href="taakrui.html">Taak ruilen</a></li>
+				<li><a href="afdelmak.html">Afdeling maken</a></li>
+			</ul>
+		</div>
+		<div id="field">
+		<label>Deze pagina is een tijdelijke oplossing om de Login te simuleren</label><br>
+		<div id='afd1'>
+			<label><b>Afdeling 1</b></label><br>
+			<input type="button" id="button1" value='1'><br>
+			<input type="button" id="button2" value='2'><br>
+			<input type="button" id="button3" value='3'><br>
+			<input type="button" id="button4" value='4'><br>
+			<input type="button" id="button5" value='5'><br>
+		</div>
+		<div id='afd2'>
+			<label><b>Afdeling 2</b></label><br>
+			<input type="button" id="button6" value='6'><br>
+			<input type="button" id="button7" value='7'><br>
+			<input type="button" id="button8" value='8'><br>
+			<input type="button" id="button9" value='9'><br>
+			<input type="button" id="button10" value='10'><br>
+		</div>
+		
+		
+		</div>
+	</div>
+	
+
+	<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+	<script>
+	$("#button1").click(function(butt) {
+		window.sessionStorage.setItem("userID", 1);	
+		window.sessionStorage.setItem("afdelingID", 1);
+	});
+	$("#button2").click(function(butt) {
+		window.sessionStorage.setItem("userID", 2);		
+		window.sessionStorage.setItem("afdelingID", 1);
+	});
+	$("#button3").click(function(butt) {
+		window.sessionStorage.setItem("userID", 3);
+		window.sessionStorage.setItem("afdelingID", 1);
+	});
+	$("#button4").click(function(butt) {
+		window.sessionStorage.setItem("userID", 4);	
+		window.sessionStorage.setItem("afdelingID", 1);
+	});
+	$("#button5").click(function(butt) {
+		window.sessionStorage.setItem("userID", 5);	
+		window.sessionStorage.setItem("afdelingID", 1);
+	});
+	$("#button6").click(function(butt) {
+		window.sessionStorage.setItem("userID", 6);	
+		window.sessionStorage.setItem("afdelingID", 2);
+	});
+	$("#button7").click(function(butt) {
+		window.sessionStorage.setItem("userID", 7);		
+		window.sessionStorage.setItem("afdelingID", 2);
+	});
+	$("#button8").click(function(butt) {
+		window.sessionStorage.setItem("userID", 8);		
+		window.sessionStorage.setItem("afdelingID", 2);
+	});
+	$("#button9").click(function(butt) {
+		window.sessionStorage.setItem("userID", 9);		
+		window.sessionStorage.setItem("afdelingID", 2);
+	});
+	$("#button10").click(function(butt) {
+		window.sessionStorage.setItem("userID", 10);	
+		window.sessionStorage.setItem("afdelingID", 2);
+	});
+	</script>
+	
+	<script src="Ipass/index.js"></script>
+	<script src="Ipass/basicScript.js"></script>
+</body>
+</html>
