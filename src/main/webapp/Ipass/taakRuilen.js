@@ -64,7 +64,6 @@ $("#verzoekOpstellen").click(function(){
 			$.each(b, function(ka, ve){
 				reden += ve;
 			})
-			console.log(reden);
 			var uri = "restservices/huis/ruilverzoeken/"+reden+"/"+verzTaak+"/"+ontvTaak+"/"+verzID+"/"+ontvID;
 			var form = 'reden='+$("#Reden").val();
 			$.post(uri, form, function(response) {
@@ -84,14 +83,5 @@ $("#verzoekOpstellen").click(function(){
 });
 
 
-$("#test").click(function(){
-	console.log("Aangeroepen")
-	var b = $("#Reden").val().split("/")
-	var z = "";
-	$.each(b, function(ka, ve){
-		z += ve;
-	})
-	
-	console.log(z)
-})
+
 
