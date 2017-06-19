@@ -19,8 +19,21 @@ public class HuisService {
 		return bewonerDAO.findAll();
 	}
 
+	public List<Bewoner> getNietAfBewonersDuur() {
+		return bewonerDAO.findAllNietAfgetekend();
+	}
+	
+	public List<Bewoner> getallBewonersDuur() {
+		return bewonerDAO.findAllDuur();
+	}
+	
+	
 	public List<Taak> getAllTaken() {
 		return taakDAO.findAll();
+	}
+	
+	public List<Taak> getAllTakenMetBew() {
+		return taakDAO.findAllinclBewNaam();
 	}
 
 	public List<Ruilverzoek> getAllRuilverzoeken() {
@@ -42,6 +55,10 @@ public class HuisService {
 			ruilverzoekDAO.delete(rv);
 		} else
 			throw new IllegalArgumentException("id does not exist!");
+	}
+	
+	public void deleteRuilverzoekByTaak(int verztaak, int ontvtaak){
+		ruilverzoekDAO.deleteByTaken(verztaak, ontvtaak);
 	}
 
 	public void updateTaak(Taak tk) {

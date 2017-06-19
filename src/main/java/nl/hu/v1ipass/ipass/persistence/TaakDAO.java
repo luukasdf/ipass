@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import nl.hu.v1ipass.ipass.model.Taak;
@@ -38,13 +36,49 @@ public class TaakDAO extends BaseDAO {
 
 		return results;
 	}
+	
+	private List<Taak> SelectTaken2(String query) {
+		List<Taak> results = new ArrayList<Taak>();
+
+		try (Connection con = super.getConnection()) {
+			Statement stmt = con.createStatement();
+			ResultSet dbResultSet = stmt.executeQuery(query);
+
+			while (dbResultSet.next()) {
+				int taakid = dbResultSet.getInt("taakid");
+				String naam = dbResultSet.getString("naam");
+				String tijdstip = dbResultSet.getString("tijdstip");
+				String afgetekend = dbResultSet.getString("afgetekend");
+				int afdelingid = dbResultSet.getInt("afdelingid");
+				int bewonerid = dbResultSet.getInt("bewonerid");
+				Date datum = dbResultSet.getDate("datum");
+				int duur = dbResultSet.getInt("duur");
+				String bewonerNaam = dbResultSet.getString("bewonernaam");
+				Taak newTaak = new Taak(taakid, naam, tijdstip, datum, afgetekend, afdelingid, bewonerid, duur);
+				newTaak.setBewonerNaam(bewonerNaam);
+				results.add(newTaak);
+			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+
+		return results;
+	}
 
 	public List<Taak> findAll() {
 		return SelectTaken("SELECT * FROM taak");
 	}
 
+	public List<Taak> findAllinclBewNaam(){
+		return SelectTaken2("select t.*, b.naam as bewonernaam from bewoner b join taak t on (b.persoonsnummer = t.bewonerid) order by bewonerid");
+	}
+	
 	public Taak findByCode(int i) {
 		return SelectTaken("SELECT * FROM taak WHERE taakid = " + i + "").get(0);
+	}
+	
+	public Taak hoogsteID() {
+		return SelectTaken("select * from taak order by taakid desc;").get(0);
 	}
 	
 	public Taak minsteTaken(int afdel){
@@ -80,13 +114,14 @@ public class TaakDAO extends BaseDAO {
 		}
 		return tk;
 	}
-
+	
 	public Taak save(Taak tk) {
+		int nieuwId = hoogsteID().getTaakID() + 1;
 		try (Connection con = super.getConnection()) {
 			Statement stmt = con.createStatement();
-			String query = "insert into taak values ( " + tk.getTaakID() + ",'" + tk.getNaam() + "','"
+			String query = "insert into taak values ( " + nieuwId  + ",'" + tk.getNaam() + "','"
 					 + tk.getTijdstip() + "'," + tk.getAfdelingId() + ","
-					+ +tk.getBewonerId() + ")";
+					+ +tk.getBewonerId() +",'Nee','"+tk.getDatum()+ "'," + tk.getDuur()+")";
 			stmt.executeQuery(query);
 
 		} catch (SQLException sqle) {

@@ -64,6 +64,48 @@ public class AfdelingResource {
 		JsonArray array = jab.build();
 		return array.toString();
 	}
+	
+	@GET
+	@Path("/bewonersnietaf")
+	@Produces("application/json")
+	public String getBewoners2() {
+		HuisService service = ServiceProvider.getHuisService();
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+
+		for (Bewoner b : service.getNietAfBewonersDuur()) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("persoonsnummer", b.getPersoonsNummer());
+			job.add("naam", b.getNaam());
+			job.add("woonadres", b.getWoonadres());
+			job.add("afdelingID", b.getAfdelingID());
+			job.add("duur", b.getDuurNietAf());
+			jab.add(job);
+		}
+
+		JsonArray array = jab.build();
+		return array.toString();
+	}
+	
+	@GET
+	@Path("/bewonersduur")
+	@Produces("application/json")
+	public String getBewoners3() {
+		HuisService service = ServiceProvider.getHuisService();
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+
+		for (Bewoner b : service.getallBewonersDuur()) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("persoonsnummer", b.getPersoonsNummer());
+			job.add("naam", b.getNaam());
+			job.add("woonadres", b.getWoonadres());
+			job.add("afdelingID", b.getAfdelingID());
+			job.add("duur", b.getDuurNietAf());
+			jab.add(job);
+		}
+
+		JsonArray array = jab.build();
+		return array.toString();
+	}
 
 	@GET
 	@Path("/taken")
@@ -77,12 +119,36 @@ public class AfdelingResource {
 			job.add("taakid", t.getTaakID());
 			job.add("naam", t.getNaam());
 			job.add("tijdstip", t.getTijdstip());
-			//job.add("dag", t.getDag());
 			job.add("datum", t.getDatum().toString());
 			job.add("afgetekend", t.getAfgetekend());
 			job.add("afdelingID", t.getAfdelingId());
 			job.add("bewonerID", t.getBewonerId());
 			job.add("duur", t.getDuur());
+			jab.add(job);
+		}
+
+		JsonArray array = jab.build();
+		return array.toString();
+	}
+	
+	@GET
+	@Path("/takenjoin")
+	@Produces("application/json")
+	public String getTakenjoin() {
+		HuisService service = ServiceProvider.getHuisService();
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+
+		for (Taak t : service.getAllTakenMetBew()) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("taakid", t.getTaakID());
+			job.add("naam", t.getNaam());
+			job.add("tijdstip", t.getTijdstip());
+			job.add("datum", t.getDatum().toString());
+			job.add("afgetekend", t.getAfgetekend());
+			job.add("afdelingID", t.getAfdelingId());
+			job.add("bewonerID", t.getBewonerId());
+			job.add("duur", t.getDuur());
+			job.add("bewonernaam", t.getBewonerNaam());
 			jab.add(job);
 		}
 
@@ -132,6 +198,8 @@ public class AfdelingResource {
 			job.add("tijdstip", rv.getTijdstip());
 			job.add("datum", rv.getDatum().toString());
 			job.add("taaknaam2", rv.getTaakNaamWeg());
+			job.add("datum2", rv.getDatum2().toString());
+			job.add("tijdstip2", rv.getTijdstip2());
 			jab.add(job);
 		}
 
@@ -190,26 +258,27 @@ public class AfdelingResource {
 	public String minsteTaken(@PathParam("id") int id){
 		HuisService service = ServiceProvider.getHuisService();
 		Taak t = service.getMinsteTaken(id);
-		JsonArrayBuilder jab = Json.createArrayBuilder();
+		//JsonArrayBuilder jab = Json.createArrayBuilder();
+		
 		JsonObjectBuilder job = Json.createObjectBuilder();	
 		job.add("bewonerid", t.getBewonerId());
 		job.add("duur", t.getDuur());
-		jab.add(job);		
-		JsonArray array = jab.build();
-		return array.toString();
+		//jab.add(job);		
+		
+		//JsonArray array = jab.build();
+		return job.build().toString();
 	}
 	
 	@POST
-	@Path("/ruilverzoeken/{id}/{inhoud}/{verztaak}/{ontvtaak}/{verzbewoner}/{ontvbewoner}")
+	@Path("/ruilverzoeken/{inhoud}/{verztaak}/{ontvtaak}/{verzbewoner}/{ontvbewoner}")
 	public String addRuilverzoek(
-			@PathParam("id") int id,
 			@PathParam("inhoud") String inhoud,
 			@PathParam("verztaak") int verztaak,
 			@PathParam("ontvtaak") int ontvtaak,
 			@PathParam("verzbewoner") int verzbewoner,
 			@PathParam("ontvbewoner") int ontvbewoner){
 		HuisService service = ServiceProvider.getHuisService();		
-		Ruilverzoek rv = new Ruilverzoek(id, inhoud, verzbewoner, ontvbewoner, verztaak, ontvtaak);
+		Ruilverzoek rv = new Ruilverzoek(0, inhoud, verzbewoner, ontvbewoner, verztaak, ontvtaak);
 		service.addRuilverzoek(rv);
 		return "succes";
 		
@@ -228,20 +297,20 @@ public class AfdelingResource {
 	HuisService service = ServiceProvider.getHuisService();
 	service.taakRuilen(verzId, verzTaakId, ontvId, ontvTaakId);
 	service.deleteRuilverzoek(ruilverzoekId);
+	service.deleteRuilverzoekByTaak(verzTaakId, ontvTaakId);
 	return "succes";
 	}
 	
 	@POST
-	@Path("/taken/{id}/{bewonerId}/{afdelingId}")
+	@Path("/taken/{afdelingId}")
 	public String addTaak(
-			@PathParam("id") int taakId,
-			@PathParam("bewonerId") int bewonerId,
 			@PathParam("afdelingId") int afdelingId,
+			@FormParam("userId") int bewonerId,
 			@FormParam("naam") String naam,
 			@FormParam("datum") Date datum,
 			@FormParam("tijdstip") String tijdstip,
 			@FormParam("duur") int duur){
-	Taak newTaak = new Taak(taakId,naam, tijdstip, datum, "Nee", afdelingId, bewonerId, duur);
+	Taak newTaak = new Taak(0,naam, tijdstip, datum, "Nee", afdelingId, bewonerId, duur);
 	HuisService service = ServiceProvider.getHuisService();
 	service.addTaak(newTaak);
 	return "succes";

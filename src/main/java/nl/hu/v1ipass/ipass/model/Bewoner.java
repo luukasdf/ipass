@@ -5,6 +5,7 @@ public class Bewoner {
 	private String naam;
 	private String woonadres;
 	private int afdelingID;
+	private String duurNietAf;
 
 	public Bewoner(int pN, String nm, String adr, int afdid) {
 		persoonsNummer = pN;
@@ -27,5 +28,13 @@ public class Bewoner {
 
 	public int getAfdelingID() {
 		return afdelingID;
+	}
+	
+	public String getDuurNietAf(){
+		return duurNietAf;
+	}
+	
+	public void setDuurNietAf(String DNA){
+		duurNietAf = DNA;
 	}
 }

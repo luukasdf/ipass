@@ -16,67 +16,80 @@
 	margin: 4px 2px;
 	cursor: pointer;
 	width: 49%;
-	min-width : 300px;
+	min-width: 300px;
 }
 
-.button:hover{
-    background-color: #555;
-    color: white;
+.button:hover {
+	background-color: #555;
+	color: white;
 }
 </style>
 </head>
 <body>
 	<div id="frame">
 		<div id="banner">
-			<div id="welkom"><br><label id="welkomsbericht"><b>Taak ruilen</b></label></div>
+			<div id="welkom">
+				<br>
+				<label id="welkomsbericht"><b>Taak ruilen</b></label>
+			</div>
 		</div>
-		<div id="userinfo"> 
-			<div id="userinfdiv"><label id="userinfoLAB"><b></b></label></div>
+		<div id="userinfo">
+			<div id="userinfdiv">
+				<label id="userinfoLAB"><b></b></label>
+			</div>
 			<div id="uitlogdiv">
-			<br>
-			<ul>
-				<li id="uitloggen"><a href="uitloggen.html">Uitloggen</a></li>
-			</ul></div>
-		
+				<br>
+				<ul>
+					<li id="uitloggen"><a href="uitloggen.html">Uitloggen</a></li>
+				</ul>
+			</div>
+
 		</div>
-		
+		<div id="bovensteStreep"></div>
 		<div id="navigation">
 			<ul>
 				<li><a href="Index.html">Home</a></li>
 				<li><a href="agenda.html">Agenda</a></li>
-				<li><a href="afdelsel.html">Afdeling selecteren</a></li>
+				<li><a href="afdelovr.html">Afdeling overzicht</a></li>
 				<li><a href="taakaft.html">Taak aftekenen</a></li>
 				<li><a href="taaktoe.html">Taak toevoegen</a></li>
 				<li><a href="taakrui.html">Taak ruilen</a></li>
-				<li><a href="afdelmak.html">Afdeling maken</a></li>
 			</ul>
 		</div>
 		<div id="field">
-		<input type="button" class="button" value="Ruil verzoek opstellen" id="verzoekBTN">
-		<input type="button" class="button" value="Ruil verzoeken inzien" id="verderBTN"><br>
-		
-		
-			Selecteer de taak die u wilt ontvangen: <br>
-		<select id="ruilverzoekSelect">
-		<option value="" disabled selected>Maak een keuze</option>
-	    </select><br><br>
-	    
-	    <input type="button" class="button" value="Verzoek afwijzen" id="declineBTN">
-		<input type="button" class="button" value="Verzoek accepteren" id="accepterenBTN"><br>
-		
-	    </div>
+			<input type="button" class="button" value="Ruil verzoek opstellen"
+				id="verzoekBTN"> <input type="button" class="button"
+				value="Ruil verzoeken inzien" id="verderBTN"><br>
+
+
+			Selecteer een ruilverzoek en kies Uw handeling: <br> <select
+				id="ruilverzoekSelect">
+				<option value="" disabled selected>Maak een keuze</option>
+			</select><br>
+			<br> <input type="button" class="button"
+				value="Verzoek afwijzen" id="declineBTN"> <input
+				type="button" class="button" value="Verzoek accepteren"
+				id="accepterenBTN">
+				<br> <label id="response"></label>
+		</div>
+		<div id="footerhead"></div>
+		<div id="footer">
+			<label id="footerLabel">Wie doet Wat?</label> <label
+				id="footerLabel2">© 2016 - 2017 Realisatie: Luuk
+				Schoenmakers</label>
+		</div>
 	</div>
-	
+
 
 	<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
-	
+
 	<script>
-	$("#verzoekBTN").click(function(){
-		window.location.href = "taakrui.html";			
-	});
-	$("#verderBTN").click(function(){
-		window.location.href = "taakver.html";			
-	});
+		$("#verzoekBTN").click(function() {
+			window.location.href = "taakrui.html";
+		});
+		$("#verderBTN").click(function() {
+			window.location.href = "taakver.html";
+		});
 	</script>
 	<script src="Ipass/verzoekKeuren.js"></script>
 	<script src="Ipass/basicScript.js"></script>

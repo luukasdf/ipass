@@ -16,60 +16,72 @@
 	margin: 4px 2px;
 	cursor: pointer;
 	width: 49%;
-	min-width : 300px;
+	min-width: 300px;
 }
 
-.button:hover{
-    background-color: #555;
-    color: white;
+.button:hover {
+	background-color: #555;
+	color: white;
 }
 </style>
 </head>
 <body>
 	<div id="frame">
 		<div id="banner">
-			<div id="welkom"><br><label id="welkomsbericht"><b>Taak toevoegen</b></label></div>
+			<div id="welkom">
+				<br> <label id="welkomsbericht"><b>Taak toevoegen</b></label>
+			</div>
 		</div>
-		<div id="userinfo"> 
-			<div id="userinfdiv"><label id="userinfoLAB"><b></b></label></div>
+		<div id="userinfo">
+			<div id="userinfdiv">
+				<label id="userinfoLAB"><b></b></label>
+			</div>
 			<div id="uitlogdiv">
-			<br>
-			<ul>
-				<li id="uitloggen"><a href="uitloggen.html">Uitloggen</a></li>
-			</ul></div>
-		
+				<br>
+				<ul>
+					<li id="uitloggen"><a href="uitloggen.html">Uitloggen</a></li>
+				</ul>
+			</div>
+
 		</div>
-		
+		<div id="bovensteStreep"></div>
 		<div id="navigation">
 			<ul>
 				<li><a href="Index.html">Home</a></li>
 				<li><a href="agenda.html">Agenda</a></li>
-				<li><a href="afdelsel.html">Afdeling selecteren</a></li>
+				<li><a href="afdelovr.html">Afdeling overzicht</a></li>
 				<li><a href="taakaft.html">Taak aftekenen</a></li>
 				<li><a href="taaktoe.html">Taak toevoegen</a></li>
 				<li><a href="taakrui.html">Taak ruilen</a></li>
-				<li><a href="afdelmak.html">Afdeling maken</a></li>
 			</ul>
 		</div>
 		<div id="field">
-		<form id="form">
-			Naam: <br>
-			<input type="text" name="naam" id="naam"><br>
-			Datum: <br>
-			<input type="date" name="datum" id="date"><br>
-			Tijdstip: <br>
-			<select>
-			 <option value="Ochtend">Ochtend</option>
-			  <option value="Middag">Middag</option>
-			   <option value="Avond">Avond</option>
-			</select><br>
-			Duur in Minuten: <br>
-			<input type="number" name="duur" id="duur"><br>
-			<input type="button" class="button" value="Voeg taak toe" id="toevBTN"> <br>
-		</form>
+			<form id="form">
+				Naam: <br> <input type="text" name="naam" id="naam"><br>
+				Datum: <br> <input type="date" name="datum" id="date"
+					min='1899-01-01'><br> Tijdstip: <br> <select
+					id="tijdstip" name="tijdstip">
+					<option value="Ochtend">Ochtend</option>
+					<option value="Middag">Middag</option>
+					<option value="Avond">Avond</option>
+				</select><br> Duur in Minuten: <br> <input type="number"
+					name="duur" id="duur"><br> Wie moet de taak uitvoeren:<br>
+				<select id="userId" name="userId">
+
+				</select><br> <br> 
+				<input type="button" class="button" value="Voeg taak toe" id="toevBTN"> <br> 
+				<label id="response"></label>
+
+			</form>
+		</div>
+		<div id="footerhead"></div>
+		<div id="footer">
+			<label id="footerLabel">Wie doet Wat?</label> <label
+				id="footerLabel2">© 2016 - 2017 Realisatie: Luuk
+				Schoenmakers</label>
 		</div>
 	</div>
-	
+
 
 	<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
 	<script src="Ipass/basicScript.js"></script>

@@ -3,8 +3,8 @@
 div#frame{
 	height: 100vh;
 	display :grid;
-	grid-template-rows: 100px 1fr;
-	grid-template-columns: 240px 1fr 150px;
+	grid-template-rows: 100px 2px 1fr 2px 40px;
+	grid-template-columns: 240px 1fr 200px;
 }
 div#banner{	
 	grid-column-start: 1;
@@ -17,6 +17,13 @@ div#userinfo{
 	font-family: Arial, Helvetica, sans-serif;
 }
 
+div#bovensteStreep{
+	background-color: #555;
+	grid-column-start: 1;
+	grid-column-end: 4;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
 div#navigation{
 	grid-column-start: 1;
 	grid-column-end: 2;
@@ -24,6 +31,18 @@ div#navigation{
 div#field{
 	background-color: white;
 	grid-column-start: 2;
+	grid-column-end: 4;
+	font-family: Arial, Helvetica, sans-serif;
+}
+div#footerhead{
+	background-color: #555;
+	grid-column-start: 1;
+	grid-column-end: 4;
+	font-family: Arial, Helvetica, sans-serif;
+}
+div#footer{
+	background-color: #f1f1f1;
+	grid-column-start: 1;
 	grid-column-end: 4;
 	font-family: Arial, Helvetica, sans-serif;
 }
@@ -75,4 +94,20 @@ li a:hover {
 }
 #userinfdiv{
 	height: 50%;
+}
+
+#footerLabel{
+	display: block;
+    text-align: center;
+    line-height: 150%;
+    font-size: .85em;
+	
+}
+
+#footerLabel2{
+	display: block;
+    text-align: center;
+    line-height: 150%;
+    font-size: .55em;
+	
 }

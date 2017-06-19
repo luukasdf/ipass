@@ -54,13 +54,16 @@ public class RuilverzoekDAO extends BaseDAO {
 				String tijdstip = dbResultSet.getString("tijdstip");
 				Date datum = dbResultSet.getDate("datum");
 				String taakweg = dbResultSet.getString("taaknaam2");
+				Date datum2 = dbResultSet.getDate("datum2");
+				String tijdstip2 = dbResultSet.getString("tijdstip2");
 				Ruilverzoek rv = new Ruilverzoek(ruilverzoekid, inhoud, verzbewoner, ontvbewoner, verztaak, ontvtaak);
 				rv.setBewonerNaam(naam);
 				rv.setTaakNaam(taaknaam);
 				rv.setTijdstip(tijdstip);
 				rv.setDatum(datum);
 				rv.setTaakNaamWeg(taakweg);
-								
+				rv.setDatum2(datum2);
+				rv.setTijdstip2(tijdstip2);
 				results.add(rv);
 			}
 		} catch (SQLException sqle) {
@@ -78,8 +81,20 @@ public class RuilverzoekDAO extends BaseDAO {
 		return SelectRuilverzoeken("SELECT * FROM ruilverzoek WHERE ruilverzoekid = " + i + "").get(0);
 	}
 	
+	public List<Ruilverzoek> findByVerztaak(int i ){
+		return SelectRuilverzoeken("select * from ruilverzoek where verztaak = " + i + "");
+	}
+	
+	public List<Ruilverzoek> findByOntvtaak(int i ){
+		return SelectRuilverzoeken("select * from ruilverzoek where ontvtaak = " + i + "");
+	}
+	
+	public Ruilverzoek hoogsteId() {
+		return SelectRuilverzoeken("select * from ruilverzoek order by ruilverzoekid desc").get(0);
+	}
+	
 	public List<Ruilverzoek> findAllJoined() {
-		return SelectRuilverzoeken2("select r.*, b.naam, t.naam as taaknaam, t.tijdstip, t.datum , t2.naam as taaknaam2 from ruilverzoek r join bewoner b on (r.verzbewoner = b.persoonsnummer) join taak t on (r.verztaak = t.taakid) join taak t2 on(r.ontvtaak = t2.taakid)");
+		return SelectRuilverzoeken2("select r.*, b.naam, t.naam as taaknaam, t.tijdstip, t.datum , t2.naam as taaknaam2, t2.datum as datum2, t2.tijdstip as tijdstip2 from ruilverzoek r join bewoner b on (r.verzbewoner = b.persoonsnummer) join taak t on (r.verztaak = t.taakid) join taak t2 on(r.ontvtaak = t2.taakid)");
 	}
 
 	public boolean delete(Ruilverzoek ruilverzoek) {
@@ -102,12 +117,34 @@ public class RuilverzoekDAO extends BaseDAO {
 
 		return result;
 	}
+	
+	public boolean deleteByTaken(int verztaak, int ontvtaak){
+		// dit zorgt ervoor dat alle ruilverzoeken met taken die iets te maken hebben 
+		// met een ruilverzoek dat geaccepteerd wordt verwijderd worden,
+		// zodat er geen foute ruilen plaats vinden.
+		List<Ruilverzoek> taken1 = new ArrayList<Ruilverzoek>();
+		List<Ruilverzoek> taken2 = new ArrayList<Ruilverzoek>();
+		
+		taken1 = findByVerztaak(verztaak);
+		taken2 = findByOntvtaak(ontvtaak);
+		
+		for (Ruilverzoek rv : taken1){
+			delete(rv);
+		}
+		
+		for (Ruilverzoek rv : taken2){
+			delete(rv);
+		}
+		
+		return true;
+	}
 
 	public Ruilverzoek save(Ruilverzoek rv) {
 		try (Connection con = super.getConnection()) {
 			Statement stmt = con.createStatement();
-
-			String query = "insert into ruilverzoek values ( " + rv.getRuilID() + ",'" + rv.getInhoud() + "',"
+			int nieuwId = hoogsteId().getRuilID() +1;
+			System.out.println(nieuwId);
+			String query = "insert into ruilverzoek values ( " + nieuwId + ",'" + rv.getInhoud() + "',"
 					+ rv.getVerzendTaakID() + "," + rv.getRetourTaakID() + "," + rv.getZenderID() + ","
 					+ rv.getOntvangerID() + ")";
 

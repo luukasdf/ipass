@@ -40,69 +40,67 @@ tr:nth-child(even) {
 <body>
 	<div id="frame">
 		<div id="banner">
-			<div id="welkom"><br><label id="welkomsbericht"><b>Afdelings overzicht</b></label></div>
+			<div id="welkom">
+				<br> <label id="welkomsbericht"><b>Afdelings
+						overzicht</b></label>
+			</div>
 		</div>
-		<div id="userinfo"> 
-			<div id="userinfdiv"><label id="userinfoLAB"><b></b></label></div>
+		<div id="userinfo">
+			<div id="userinfdiv">
+				<label id="userinfoLAB"><b></b></label>
+			</div>
 			<div id="uitlogdiv">
-			<br>
-			<ul>
-				<li id="uitloggen"><a href="uitloggen.html">Uitloggen</a></li>
-			</ul></div>
-		
+				<br>
+				<ul>
+					<li id="uitloggen"><a href="uitloggen.html">Uitloggen</a></li>
+				</ul>
+			</div>
+
 		</div>
-		
+		<div id="bovensteStreep"></div>
 		<div id="navigation">
 			<ul>
 				<li><a href="Index.html">Home</a></li>
 				<li><a href="agenda.html">Agenda</a></li>
-				<li><a href="afdelsel.html">Afdeling selecteren</a></li>
+				<li><a href="afdelovr.html">Afdeling overzicht</a></li>
 				<li><a href="taakaft.html">Taak aftekenen</a></li>
 				<li><a href="taaktoe.html">Taak toevoegen</a></li>
 				<li><a href="taakrui.html">Taak ruilen</a></li>
-				<li><a href="afdelmak.html">Afdeling maken</a></li>
 			</ul>
 		</div>
 		<div id="field">
-					<div id="agendatable">
-				<table>
+			<div id="agendatable">
+				<label><b>Alle bewoners</b></label>
+				<table id="lieveJongens">
 					<tr>
-						<th><b>Bewoner:</b></th>
-						<th>Bew1</th>
-						<th>bew2</th>
-						<th>bew3</th>
-						<th>bew4</th>
-						<th>bew5</th>
+						<th>Naam</th>
+						<th>Woonplaats</th>
+						<th>Duur in minuten</th>
 					</tr>
-					<tr id="tableOchtend">
-						<td id="tableLeft"><b>Taken</b></td>
-						<td><label id='maandagOchtend'></label></td>
-						<td><label id='dinsdagOchtend'></label></td>
-						<td><label id='woensdagOchtend'></label></td>
-						<td><label id='donderdagOchtend'></label></td>
-						<td><label id='vrijdagOchtend'></label></td>
-					</tr>
-					<tr id="tableMiddag">
-						<td id="tableLeft"><b>Werk Uren</b></td>
-						<td><label id='maandagMiddag'></label></td>
-						<td><label id='dinsdagMiddag'></label></td>
-						<td><label id='woensdagMiddag'></label></td>
-						<td><label id='donderdagMiddag'></label></td>
-						<td><label id='vrijdagMiddag'></label></td>
-					</tr>
-					<tr id="tableAvond">
-						<td id="tableLeft"><b>Voldaan?</b></td>
-						<td><label id='maandagAvond'></label></td>
-						<td><label id='dinsdagAvond'></label></td>
-						<td><label id='woensdagAvond'></label></td>
-						<td><label id='donderdagAvond'></label></td>
-						<td><label id='vrijdagAvond'></label></td>
 				</table>
+			</div>
+			<div id="stouteJongensDiv">
+				<br> <label><b>De stoute jongens</b></label> <br>
+				<table id="stouteJongens">
+					<tr>
+						<th>Naam</th>
+						<th>Woonplaats</th>
+						<th>Strafpunten</th>
+					</tr>
+				</table>
+			</div>
 		</div>
-	</div>
+		<div id="footerhead"></div>
+		<div id="footer">
+			<label id="footerLabel">Wie doet Wat?</label> <label
+				id="footerLabel2">© 2016 - 2017 Realisatie: Luuk
+				Schoenmakers</label>
+		</div>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
 	<script src="Ipass/basicScript.js"></script>
+	<script src="Ipass/afdelingoverzicht.js"></script>
+
 </body>
 </html>

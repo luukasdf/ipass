@@ -54,7 +54,7 @@ function verzoekenWeergeven(userID, afdelingID){
 			//console.log(v.naam +" wil "+ v.taaknaam + " in de " + v.tijdstip + " ruilen voor " + v.taaknaam2)
 			$("#ruilverzoekSelect")
 				.append($("<option></option>")
-					.text(v.naam +" wil "+ v.taaknaam + " in de " + v.tijdstip + " ruilen voor " + v.taaknaam2)
+					.text(v.naam +" wil "+ v.taaknaam +" op "+ v.datum +" in de " + v.tijdstip + " ruilen voor " + v.taaknaam2 + " op " + v.datum2 + " in de " + v.tijdstip2)
 						.val(v.ruilverzoekId+","+v.verzendId+","+v.verzendTaakId+","+v.ontvangerId+","+v.ontvangTaakId)); console.log(v)
 		});
 		
@@ -64,30 +64,61 @@ function verzoekenWeergeven(userID, afdelingID){
 }
 
 $("#accepterenBTN").click(function(){
-	//console.log("Clicked");
-	//console.log($("#ruilverzoekSelect").val());
-	var ruilverzoekId = $("#ruilverzoekSelect").val().split(",")[0];
-	var verzId = $("#ruilverzoekSelect").val().split(",")[1];
-	var verzTaakId = $("#ruilverzoekSelect").val().split(",")[2];
-	var ontvId = $("#ruilverzoekSelect").val().split(",")[3];
-	var ontvTaakId = $("#ruilverzoekSelect").val().split(",")[4];
+	if ($("#ruilverzoekSelect").val() != null){	
+		var ruilverzoekId = $("#ruilverzoekSelect").val().split(",")[0];
+		var verzId = $("#ruilverzoekSelect").val().split(",")[1];
+		var verzTaakId = $("#ruilverzoekSelect").val().split(",")[2];
+		var ontvId = $("#ruilverzoekSelect").val().split(",")[3];
+		var ontvTaakId = $("#ruilverzoekSelect").val().split(",")[4];
 	
-	/*console.log(ruilverzoekId)
-	console.log(verzId)
-	console.log(verzTaakId)
-	console.log(ontvId)
-	console.log(ontvTaakId)*/
+		var uri = "restservices/huis/takenruilen/" + ruilverzoekId +"/"+ verzId +"/"+ verzTaakId +"/"+ ontvId +"/"+ ontvTaakId;
 	
-	var uri = "restservices/huis/takenruilen/" + ruilverzoekId +"/"+ verzId +"/"+ verzTaakId +"/"+ ontvId +"/"+ ontvTaakId;
-	//console.log(uri)
-    $.ajax(uri, { 
-        type: "put",  
-        success: function(response) {
-            $("#response").text("geruild!");
-        },
-        error: function(response) {
-            $("#response").text("geruild!");
-        }
-        
-    });
+	    $.ajax(uri, { 
+	        type: "put",  
+	        success: function(response) {
+	            $("#response").text("De taken zijn geruild!");
+	        },
+	    });
+	    
+	    $('#ruilverzoekSelect')
+	    .find('option')
+	    .remove()
+	    .end()
+	    .append('<option value="" disabled selected>Maak een keuze</option>')
+	    .val('whatever');
+	    setTimeout(verzoekenWeergeven(window.sessionStorage.getItem("userID"), window.sessionStorage.getItem("afdelingID")), 1000);
+	    
+	}
+	if ($("#ruilverzoekSelect").val() == null){	
+		
+		$("#response").text("Er is geen taak geselecteerd!")
+	}
 });
+
+$("#declineBTN").click(function(){
+	if ($("#ruilverzoekSelect").val() != null){	
+	var ruilverzoekId = $("#ruilverzoekSelect").val().split(",")[0];
+	var uri = "restservices/huis/ruilverzoeken/" + ruilverzoekId 
+	console.log(uri)
+	$.ajax(uri, {
+		type: 'delete',
+		success: function(response) {
+	       $("#response").text("Verzoek afgekeurd!");
+	       $("#ruilverzoekSelect").find('option:selected', this).remove();
+	       
+	    },
+
+	    error: function(response) {
+	    	$("#response").text("verzoek kan niet afgekeurd worden!");    	
+	    }
+	    });
+	
+	}
+	if ($("#ruilverzoekSelect").val() == null){	
+		
+		$("#response").text("Er is geen taak geselecteerd!")
+	}
+	
+});
+
+

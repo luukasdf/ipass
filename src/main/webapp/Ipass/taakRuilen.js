@@ -30,7 +30,7 @@ function takenWeergeven(userID, afdelingID){
 		$.each(ruilOpties, function(k, v) {   
 		     $('#taakID2')
 		         .append($("<option></option>")
-		                    .text(v.taaknaam + " met "+v.naam + " op "+ v.datum +", in de " + v.tijdstip)
+		                    .text(v.taaknaam + " van "+v.naam + " op "+ v.datum +", in de " + v.tijdstip)
 		                    	.val(v.bewonerid+","+ v.taakid)); 
 		});
 	});
@@ -44,27 +44,54 @@ $("#verzoekBTN").click(function(){
 $("#verderBTN").click(function(){
 	window.location.href = "taakver.html";			
 });
-$("#verzoekOpstellen").click(function(){
-	$.get("restservices/huis/ruilverzoeken", function(data) {    
-		var taakIDs = [];
-		$.each(data, function(k, v) {
-			taakIDs.push(v.ruilverzoekId);
+$("#verzoekOpstellen").click(function(){	
+	if ($("#Reden").val() != "" && ($("#taakID").val()) != null && $("#taakID2").val() != null){
+		$.get("restservices/huis/ruilverzoeken", function(data) {    
+			var taakIDs = [];
+			$.each(data, function(k, v) {
+				taakIDs.push(v.ruilverzoekId);
+				
+			});
+			taakIDs.sort();
+			var verzID = window.sessionStorage.getItem("userID");
+			var verzTaak = ($("#taakID").val());
+			var ontvTaak = $("#taakID2").val().split(",")[1];
+			var ontvID = $("#taakID2").val().split(",")[0];
+			//var reden = $("#Reden").val();
 			
+			var b = $("#Reden").val().split("/")
+			var reden = "";
+			$.each(b, function(ka, ve){
+				reden += ve;
+			})
+			console.log(reden);
+			var uri = "restservices/huis/ruilverzoeken/"+reden+"/"+verzTaak+"/"+ontvTaak+"/"+verzID+"/"+ontvID;
+			var form = 'reden='+$("#Reden").val();
+			$.post(uri, form, function(response) {
+				$("#response").html("Er is een verzoek verzonden!")
+			}); 	
 		});
-	taakIDs.sort();
-	var verzID = window.sessionStorage.getItem("userID");
-	var verzTaak = ($("#taakID").val());
-	var ontvTaak = $("#taakID2").val().split(",")[1];
-	var ontvID = $("#taakID2").val().split(",")[0];
-	var nieuwID = taakIDs.length +1;
-	console.log(nieuwID)
-	var reden = $("#Reden").val();
-	var uri = "restservices/huis/ruilverzoeken/"+nieuwID+"/"+reden+"/"+verzTaak+"/"+ontvTaak+"/"+verzID+"/"+ontvID;
-	console.log(uri)
-	$.post(uri, function(response) {
-		
-		
-    }); 
-	
- });
+	}
+	if ($("#Reden").val() == ""){
+		$("#response").html("Er is geen reden ingevoerd")
+	}
+	if (($("#taakID").val()) == null){
+		$("#response").html("Er is geen verzend taak ingevoerd")
+	}
+	if ($("#taakID2").val() == null){
+		$("#response").html("Er is geen ontvang taak ingevoerd")
+	}
 });
+
+
+$("#test").click(function(){
+	console.log("Aangeroepen")
+	var b = $("#Reden").val().split("/")
+	var z = "";
+	$.each(b, function(ka, ve){
+		z += ve;
+	})
+	
+	console.log(z)
+})
+

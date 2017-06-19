@@ -36,6 +36,25 @@ tr:nth-child(even) {
 	height: 100%;
 	font-family: Arial, Helvetica, sans-serif;
 }
+
+.button {
+	background-color: #f1f1f1;
+	border: none;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 20px;
+	margin: 4px 2px;
+	cursor: pointer;
+	width: 32%;
+	min-width: 200px;
+}
+
+.button:hover {
+	background-color: #555;
+	color: white;
+}
 </style>
 </head>
 <body>
@@ -58,16 +77,15 @@ tr:nth-child(even) {
 			</div>
 
 		</div>
-
+		<div id="bovensteStreep"></div>
 		<div id="navigation">
 			<ul>
 				<li><a href="Index.html">Home</a></li>
 				<li><a href="agenda.html">Agenda</a></li>
-				<li><a href="afdelsel.html">Afdeling selecteren</a></li>
+				<li><a href="afdelovr.html">Afdeling overzicht</a></li>
 				<li><a href="taakaft.html">Taak aftekenen</a></li>
 				<li><a href="taaktoe.html">Taak toevoegen</a></li>
 				<li><a href="taakrui.html">Taak ruilen</a></li>
-				<li><a href="afdelmak.html">Afdeling maken</a></li>
 			</ul>
 		</div>
 		<div id="field">
@@ -117,8 +135,20 @@ tr:nth-child(even) {
 						<td><label id='zondagAvond'></label></td>
 					</tr>
 				</table>
+				<br><br>
+				<label> selecteer een datum: </label>
+				<br>
+				<input type="date" name="datum" id="date" min='2017-01-01'><br>
+				<input type="button" class="button" value="geef agenda weer" id="weekVeranderen">
+				<br>
+				<label id='response'></label>
 			</div>
 			<div id="agendacomment"></div>
+		</div>
+				<div id="footerhead"></div>
+		<div id="footer"> 
+			<label id="footerLabel">Wie doet Wat?</label>
+			<label id="footerLabel2">© 2016 - 2017 Realisatie: Luuk Schoenmakers</label>
 		</div>
 	</div>
 

@@ -11,7 +11,9 @@ public class Taak {
 	private int afdelingId;
 	private int bewonerId;
 	private int duur;
-
+	private String bewonerNaam;
+	
+	
 	public Taak(int id, String nm, String tid, Date dat, String aft, int afd, int bew, int dr) {
 		taakID = id;
 		naam = nm;
@@ -64,6 +66,14 @@ public class Taak {
 	
 	public void setDuur(int dr){
 		duur = dr;
+	}
+	
+	public String getBewonerNaam(){
+		return bewonerNaam;
+	}
+	
+	public void setBewonerNaam(String bn){
+		bewonerNaam = bn;
 	}
 
 }

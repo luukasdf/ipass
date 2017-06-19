@@ -16,6 +16,9 @@ public class Ruilverzoek {
 	private Date datum;
 	private String taaknaamWeg;
 	
+	private Date datum2;
+	private String tijdstip2;
+	
 	
 	public Ruilverzoek(int id, String inh, int zend, int ontv, int verzTK, int retrTK) {
 		ruilID = id;
@@ -88,5 +91,21 @@ public class Ruilverzoek {
 	
 	public void setTaakNaamWeg(String tnw){
 		taaknaamWeg = tnw;
+	}
+	
+	public Date getDatum2(){
+		return datum2;
+	}
+	
+	public void setDatum2(Date d){
+		datum2 = d;
+	}
+	
+	public String getTijdstip2(){
+		return tijdstip2;
+	}
+	
+	public void setTijdstip2(String tijd2){
+		tijdstip2 = tijd2;
 	}
 }

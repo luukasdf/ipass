@@ -5,8 +5,24 @@
 <title>Wie doet wat?</title>
 <link rel="stylesheet" type="text/css" href="Ipass/style.css">
 <style>
-#afd1{
+.button {
+	background-color: #f1f1f1;
+	border: none;
+	padding: 10px 21px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	width: 20%;
+	height: 3%;
+	min-width: 120px;
+}
 
+.button:hover{
+    background-color: #555;
+    color: white;
 }
 </style>
 
@@ -25,38 +41,41 @@
 			</ul></div>
 		
 		</div>
-		
+		<div id="bovensteStreep"></div>
 		<div id="navigation">
 			<ul>
 				<li><a href="Index.html">Home</a></li>
 				<li><a href="agenda.html">Agenda</a></li>
-				<li><a href="afdelsel.html">Afdeling selecteren</a></li>
+				<li><a href="afdelovr.html">Afdeling overzicht</a></li>
 				<li><a href="taakaft.html">Taak aftekenen</a></li>
 				<li><a href="taaktoe.html">Taak toevoegen</a></li>
 				<li><a href="taakrui.html">Taak ruilen</a></li>
-				<li><a href="afdelmak.html">Afdeling maken</a></li>
 			</ul>
 		</div>
+		
 		<div id="field">
 		<label>Deze pagina is een tijdelijke oplossing om de Login te simuleren</label><br>
 		<div id='afd1'>
 			<label><b>Afdeling 1</b></label><br>
-			<input type="button" id="button1" value='1'><br>
-			<input type="button" id="button2" value='2'><br>
-			<input type="button" id="button3" value='3'><br>
-			<input type="button" id="button4" value='4'><br>
-			<input type="button" id="button5" value='5'><br>
+			<input type="button" class="button" id="button1" value='1 Patrick'><br>
+			<input type="button" class="button" id="button2" value='2 Luuk'><br>
+			<input type="button" class="button" id="button3" value='3 Nico'><br>
+			<input type="button" class="button" id="button4" value='4 Falco'><br>
+			<input type="button" class="button" id="button5" value='5 Matthias'><br>
 		</div>
 		<div id='afd2'>
 			<label><b>Afdeling 2</b></label><br>
-			<input type="button" id="button6" value='6'><br>
-			<input type="button" id="button7" value='7'><br>
-			<input type="button" id="button8" value='8'><br>
-			<input type="button" id="button9" value='9'><br>
-			<input type="button" id="button10" value='10'><br>
+			<input type="button" class="button" id="button6" value='6 Chanwai'><br>
+			<input type="button" class="button" id="button7" value='7 Joost'><br>
+			<input type="button" class="button" id="button8" value='8 Dirk'><br>
+			<input type="button" class="button" id="button9" value='9 Jeffrey'><br>
+			<input type="button" class="button" id="button10" value='10 Henry'><br>
+		</div>	
 		</div>
-		
-		
+		<div id="footerhead"></div>
+		<div id="footer"> 
+			<label id="footerLabel">Wie doet Wat?</label>
+			<label id="footerLabel2">© 2016 - 2017 Realisatie: Luuk Schoenmakers</label>
 		</div>
 	</div>
 	
@@ -66,42 +85,52 @@
 	$("#button1").click(function(butt) {
 		window.sessionStorage.setItem("userID", 1);	
 		window.sessionStorage.setItem("afdelingID", 1);
+		location.reload();
 	});
 	$("#button2").click(function(butt) {
 		window.sessionStorage.setItem("userID", 2);		
 		window.sessionStorage.setItem("afdelingID", 1);
+		location.reload();
 	});
 	$("#button3").click(function(butt) {
 		window.sessionStorage.setItem("userID", 3);
 		window.sessionStorage.setItem("afdelingID", 1);
+		location.reload();
 	});
 	$("#button4").click(function(butt) {
 		window.sessionStorage.setItem("userID", 4);	
 		window.sessionStorage.setItem("afdelingID", 1);
+		location.reload();
 	});
 	$("#button5").click(function(butt) {
 		window.sessionStorage.setItem("userID", 5);	
 		window.sessionStorage.setItem("afdelingID", 1);
+		location.reload();
 	});
 	$("#button6").click(function(butt) {
 		window.sessionStorage.setItem("userID", 6);	
 		window.sessionStorage.setItem("afdelingID", 2);
+		location.reload();
 	});
 	$("#button7").click(function(butt) {
 		window.sessionStorage.setItem("userID", 7);		
 		window.sessionStorage.setItem("afdelingID", 2);
+		location.reload();
 	});
 	$("#button8").click(function(butt) {
 		window.sessionStorage.setItem("userID", 8);		
 		window.sessionStorage.setItem("afdelingID", 2);
+		location.reload();
 	});
 	$("#button9").click(function(butt) {
 		window.sessionStorage.setItem("userID", 9);		
 		window.sessionStorage.setItem("afdelingID", 2);
+		location.reload();
 	});
 	$("#button10").click(function(butt) {
 		window.sessionStorage.setItem("userID", 10);	
 		window.sessionStorage.setItem("afdelingID", 2);
+		location.reload();
 	});
 	</script>
 	

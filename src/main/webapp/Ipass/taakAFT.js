@@ -41,9 +41,6 @@ function takenWeergeven(bewID){
 			if (d.setHours(0,0,0,0) == curr.setHours(0,0,0,0)  && v.afgetekend == 'Nee' && v.bewonerID == bewID){
 				aftekenTaken.push(v);
 			}
-		});
-		$.each(aftekenTaken, function(k, v) {
-			$("#aftekenTaken").append(" "+v.naam + " Met als ID " + v.taakid);
 		});		
 		$.each(aftekenTaken, function(k, v) {   
 		     $('#taakID')

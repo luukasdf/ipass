@@ -31,9 +31,43 @@ public class BewonerDAO extends BaseDAO {
 
 		return results;
 	}
+	
+	private List<Bewoner> selectBewoners2(String query) {
+		List<Bewoner> results = new ArrayList<Bewoner>();
+
+		try (Connection con = super.getConnection()) {
+			Statement stmt = con.createStatement();
+			ResultSet dbResultSet = stmt.executeQuery(query);
+
+			while (dbResultSet.next()) {
+				int persoonsnummer = dbResultSet.getInt("persoonsnummer");
+				String naam = dbResultSet.getString("naam");
+				String woonadres = dbResultSet.getString("woonadres");
+				int afdelingid = dbResultSet.getInt("afdelingid");
+				String duurNietAf =  dbResultSet.getString("duur");
+				Bewoner newBewoner = new Bewoner(persoonsnummer, naam, woonadres, afdelingid);
+				newBewoner.setDuurNietAf(duurNietAf);
+				results.add(newBewoner);
+			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+
+		return results;
+	}
+	
+
 
 	public List<Bewoner> findAll() {
 		return selectBewoners("SELECT * FROM bewoner");
 	}
+	
+	public List<Bewoner> findAllNietAfgetekend(){
+		return selectBewoners2("select b.*, sum(t.duur) as duur from bewoner b join taak t on (b.persoonsnummer = t.bewonerid) where afgetekend = 'Nee' and datum < current_date group by persoonsnummer order by duur desc");
+	}
+	public List<Bewoner> findAllDuur(){
+		return selectBewoners2("select b.*, sum(t.duur) as duur from bewoner b join taak t on (b.persoonsnummer = t.bewonerid) where datum < current_date group by persoonsnummer order by duur desc");
+	}
+
 
 }
