@@ -1,7 +1,6 @@
 window.onload=initpage
 
-function initpage(){
-	bewonersLaden(window.sessionStorage.getItem("userID"), window.sessionStorage.getItem("afdelingID"))	
+function initpage(){	
 	var today = new Date();
 	var dd = today.getDate();
 	var mm = today.getMonth()+1; //January is 0!
@@ -15,49 +14,21 @@ function initpage(){
 
 	today = yyyy+'-'+mm+'-'+dd;
 	document.getElementById("date").setAttribute("min", today);
-	
-	
 }
-
-
-
-function bewonersLaden(userID, afdelingID){
-	
-	var bewoners=[];
-	$.get("restservices/huis/bewoners", function(data) {    
-		$.each(data, function(k, v) {
-			if (v.afdelingID == afdelingID){
-				bewoners.push(v);
-				
-			}
-		});		
-		$.each(bewoners, function(k, v) {  
-		     $('#userId')
-		         .append($("<option></option>")
-		                    .text(v.naam)
-		                    	.val(v.persoonsnummer)); 
-		});
-	});	
-}
-
+//voegt een taak toe aan de hand van de verstrekte informatie
 $("#toevBTN").click(function(){
 	var data = $("#form").serialize();
-	console.log(data)
 	var d = new Date($("#date").val())
-	
 	var newD = new Date()
 	newD.setHours(0,0,0,0)
-	console.log(d > newD)
-	
+	//taak wordt automatisch aan de persoon gegeven met de minste taken (minste duur) 
 	var uri = "restservices/huis/taken/"+window.sessionStorage.getItem("afdelingID");
-	
-	console.log($("#date").val() != "" && $("#duur").val() != "");
 	if ($("#naam").val() != "" && $("#date").val() != "" && $("#duur").val() != "" && d > newD){
-		console.log("Post request")
-	$.post(uri, data, function(response) {
-		$("#response").text("Taak added!");
-    }); 
+		$.post(uri, data, function(response) {
+			$("#response").text("Taak added!");
+	    }); 
 	}
+	//checken of de verstrekte informatie correct is
 	if ($("#naam").val() == ""){
 		$("#response").text("Er is geen naam ingevoerd!");
 	}

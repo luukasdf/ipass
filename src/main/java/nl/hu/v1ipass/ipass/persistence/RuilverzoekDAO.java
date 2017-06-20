@@ -34,6 +34,7 @@ public class RuilverzoekDAO extends BaseDAO {
 		return results;
 	}
 	
+	//voor de Join
 	private List<Ruilverzoek> SelectRuilverzoeken2(String query) {
 		List<Ruilverzoek> results = new ArrayList<Ruilverzoek>();
 
@@ -89,10 +90,11 @@ public class RuilverzoekDAO extends BaseDAO {
 		return SelectRuilverzoeken("select * from ruilverzoek where ontvtaak = " + i + "");
 	}
 	
+	//voor een nieuwId maken
 	public Ruilverzoek hoogsteId() {
 		return SelectRuilverzoeken("select * from ruilverzoek order by ruilverzoekid desc").get(0);
 	}
-	
+	//join
 	public List<Ruilverzoek> findAllJoined() {
 		return SelectRuilverzoeken2("select r.*, b.naam, t.naam as taaknaam, t.tijdstip, t.datum , t2.naam as taaknaam2, t2.datum as datum2, t2.tijdstip as tijdstip2 from ruilverzoek r join bewoner b on (r.verzbewoner = b.persoonsnummer) join taak t on (r.verztaak = t.taakid) join taak t2 on(r.ontvtaak = t2.taakid)");
 	}

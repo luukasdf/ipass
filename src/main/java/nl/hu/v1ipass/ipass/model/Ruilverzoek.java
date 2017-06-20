@@ -9,7 +9,7 @@ public class Ruilverzoek {
 	private int ontvanger;
 	private int verzendTaak;
 	private int retourTaak;
-	
+	//Join attributen
 	private String naam;
 	private String taaknaam;
 	private String tijdstip;

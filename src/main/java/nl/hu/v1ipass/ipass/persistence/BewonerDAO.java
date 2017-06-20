@@ -31,7 +31,7 @@ public class BewonerDAO extends BaseDAO {
 
 		return results;
 	}
-	
+	//voor de Join functie
 	private List<Bewoner> selectBewoners2(String query) {
 		List<Bewoner> results = new ArrayList<Bewoner>();
 
@@ -61,12 +61,13 @@ public class BewonerDAO extends BaseDAO {
 	public List<Bewoner> findAll() {
 		return selectBewoners("SELECT * FROM bewoner");
 	}
-	
+	//alle "stoute jongens" ophalen, bewoners die een taak in het verleden niet hebben afgetekend
 	public List<Bewoner> findAllNietAfgetekend(){
 		return selectBewoners2("select b.*, sum(t.duur) as duur from bewoner b join taak t on (b.persoonsnummer = t.bewonerid) where afgetekend = 'Nee' and datum < current_date group by persoonsnummer order by duur desc");
 	}
+	//alle bewoners ophalen met hun werkelijk afgetekende duur
 	public List<Bewoner> findAllDuur(){
-		return selectBewoners2("select b.*, sum(t.duur) as duur from bewoner b join taak t on (b.persoonsnummer = t.bewonerid) where datum < current_date group by persoonsnummer order by duur desc");
+		return selectBewoners2("select b.*, sum(t.duur) as duur from bewoner b join taak t on (b.persoonsnummer = t.bewonerid) where  afgetekend = 'Ja' and datum < current_date group by persoonsnummer order by duur desc");
 	}
 
 

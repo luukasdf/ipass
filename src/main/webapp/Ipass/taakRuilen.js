@@ -3,7 +3,7 @@ window.onload=initpage
 function initpage(){
 	takenWeergeven(window.sessionStorage.getItem("userID"), window.sessionStorage.getItem("afdelingID"))
 }
-
+//geeft de te ruilen en de te ontvangen taken weer in twee verschillende dropdown select inputs.
 function takenWeergeven(userID, afdelingID){
 	$.get("restservices/huis/taken", function(data) {    
 		var vandaag = new Date;
@@ -18,6 +18,7 @@ function takenWeergeven(userID, afdelingID){
 		    $('#taakID').append($("<option></option>").text(v.naam +" op "+ v.datum +", in de " + v.tijdstip).val(v.taakid)); 	     
 		});
 	});
+	//haalt mogelijke ruilpartners op met bijbehorende taak en geeft deze weer in een dropdown.
 	$.get("restservices/huis/ruilopties", function(data) {    
 		var vandaag = new Date;
 		vandaag.setDate(vandaag.getDate()-1);
@@ -44,36 +45,32 @@ $("#verzoekBTN").click(function(){
 $("#verderBTN").click(function(){
 	window.location.href = "taakver.html";			
 });
+
+//stelt een ruilverzoek op.
 $("#verzoekOpstellen").click(function(){	
-	if ($("#Reden").val() != "" && ($("#taakID").val()) != null && $("#taakID2").val() != null){
+	if (($("#taakID").val()) != null && $("#taakID2").val() != null){
 		$.get("restservices/huis/ruilverzoeken", function(data) {    
 			var taakIDs = [];
 			$.each(data, function(k, v) {
-				taakIDs.push(v.ruilverzoekId);
-				
+				taakIDs.push(v.ruilverzoekId);				
 			});
 			taakIDs.sort();
 			var verzID = window.sessionStorage.getItem("userID");
 			var verzTaak = ($("#taakID").val());
 			var ontvTaak = $("#taakID2").val().split(",")[1];
 			var ontvID = $("#taakID2").val().split(",")[0];
-			//var reden = $("#Reden").val();
-			
-			var b = $("#Reden").val().split("/")
-			var reden = "";
-			$.each(b, function(ka, ve){
-				reden += ve;
-			})
+			//de reden functionaliteit heb ik niet naar behoren in beeld kunnen brengen bij het
+			//keuren van een ruilverzoek, dus heb ik deze geschrapt.
+			//echter is er nog wel code aanwezig voor deze functionaliteit dus het kan achteraf
+			//vrij makkelijk geimplementeerd worden.
+			var reden = "Deze functionaliteit is tijdelijk uitgeschakeld";
 			var uri = "restservices/huis/ruilverzoeken/"+reden+"/"+verzTaak+"/"+ontvTaak+"/"+verzID+"/"+ontvID;
-			var form = 'reden='+$("#Reden").val();
-			$.post(uri, form, function(response) {
+			$.post(uri, function(response) {
 				$("#response").html("Er is een verzoek verzonden!")
 			}); 	
 		});
 	}
-	if ($("#Reden").val() == ""){
-		$("#response").html("Er is geen reden ingevoerd")
-	}
+
 	if (($("#taakID").val()) == null){
 		$("#response").html("Er is geen verzend taak ingevoerd")
 	}

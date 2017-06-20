@@ -51,3 +51,19 @@ function takenWeergeven(bewID){
 		
 	});
 }
+
+$("#verderBTN").click(function(){	
+	if ($("#taakID").val() != ""){
+		var uri = "restservices/huis/takenaftekenen/" + $("#taakID").val();
+	    $.ajax(uri, { 
+	        type: "put",  
+	        success: function(response) {
+	            $("#response").text("taak is afgetekend!");
+	        },
+	    });	    
+	    $("#taakID").find('option:selected', this).remove()
+	}
+	if ($("#taakID").val() == ""){
+		$("#response").text("Er is geen taak geselecteerd");
+	}
+});

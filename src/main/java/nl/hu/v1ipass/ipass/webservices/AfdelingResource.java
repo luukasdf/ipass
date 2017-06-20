@@ -25,7 +25,7 @@ import nl.hu.v1ipass.ipass.model.Taak;
 
 @Path("/huis")
 public class AfdelingResource {
-
+	//afdelingen weergeven
 	@GET
 	@Path("/afdelingen")
 	@Produces("application/json")
@@ -44,7 +44,7 @@ public class AfdelingResource {
 		JsonArray array = jab.build();
 		return array.toString();
 	}
-
+	//bewoners weergeven
 	@GET
 	@Path("/bewoners")
 	@Produces("application/json")
@@ -64,7 +64,7 @@ public class AfdelingResource {
 		JsonArray array = jab.build();
 		return array.toString();
 	}
-	
+	//bewoners weergeven met taken in het verleden die niet zijn afgetekend
 	@GET
 	@Path("/bewonersnietaf")
 	@Produces("application/json")
@@ -81,11 +81,11 @@ public class AfdelingResource {
 			job.add("duur", b.getDuurNietAf());
 			jab.add(job);
 		}
-
 		JsonArray array = jab.build();
 		return array.toString();
 	}
 	
+	//bewoners weergeven met bijbehorende totale duur in het verleden van taken die zijn afgetekend
 	@GET
 	@Path("/bewonersduur")
 	@Produces("application/json")
@@ -106,7 +106,7 @@ public class AfdelingResource {
 		JsonArray array = jab.build();
 		return array.toString();
 	}
-
+	//taken weergeven
 	@GET
 	@Path("/taken")
 	@Produces("application/json")
@@ -130,7 +130,7 @@ public class AfdelingResource {
 		JsonArray array = jab.build();
 		return array.toString();
 	}
-	
+	//taken weergeven gejoined met bewoners
 	@GET
 	@Path("/takenjoin")
 	@Produces("application/json")
@@ -156,6 +156,7 @@ public class AfdelingResource {
 		return array.toString();
 	}
 
+	//ruilverzoeken weergeven
 	@GET
 	@Path("/ruilverzoeken")
 	@Produces("application/json")
@@ -177,7 +178,7 @@ public class AfdelingResource {
 		JsonArray array = jab.build();
 		return array.toString();
 	}
-	
+	//ruilverzoeken weergeven gejoined met bewoner en taak
 	@GET
 	@Path("/ruilverzoekenjoined")
 	@Produces("application/json")
@@ -206,7 +207,8 @@ public class AfdelingResource {
 		JsonArray array = jab.build();
 		return array.toString();
 	}
-	
+
+	//ruilopties weergeven
 	@GET
 	@Path("/ruilopties")
 	@Produces("application/json")
@@ -229,7 +231,8 @@ public class AfdelingResource {
 		JsonArray array = jab.build();
 		return array.toString();
 	}
-
+	
+	//afgekeurd ruilverzoek kunnen verwijderen
 	@DELETE
 	@Path("/ruilverzoeken/{id}")
 	public String deleteCountry(@PathParam("id") int id) {
@@ -244,7 +247,8 @@ public class AfdelingResource {
 		service.deleteRuilverzoek(found.getRuilID());
 		return "succes";
 	}
-
+	
+	//taak aftekenen
 	@PUT
 	@Path("/takenaftekenen/{id}")
 	public String tekenTaakAf(@PathParam("id") int id){
@@ -252,23 +256,9 @@ public class AfdelingResource {
 		service.tekenTaakAf(id);
 		return "succes";
 	}
-	
-	@GET
-	@Path("/minstetaken/{id}")
-	public String minsteTaken(@PathParam("id") int id){
-		HuisService service = ServiceProvider.getHuisService();
-		Taak t = service.getMinsteTaken(id);
-		//JsonArrayBuilder jab = Json.createArrayBuilder();
-		
-		JsonObjectBuilder job = Json.createObjectBuilder();	
-		job.add("bewonerid", t.getBewonerId());
-		job.add("duur", t.getDuur());
-		//jab.add(job);		
-		
-		//JsonArray array = jab.build();
-		return job.build().toString();
-	}
-	
+
+	//ruilverzoek opstellen
+	//PathParam gerbuikt omdat de form niet gezonden kon worden, dus een alternatieve oplossing
 	@POST
 	@Path("/ruilverzoeken/{inhoud}/{verztaak}/{ontvtaak}/{verzbewoner}/{ontvbewoner}")
 	public String addRuilverzoek(
@@ -281,11 +271,9 @@ public class AfdelingResource {
 		Ruilverzoek rv = new Ruilverzoek(0, inhoud, verzbewoner, ontvbewoner, verztaak, ontvtaak);
 		service.addRuilverzoek(rv);
 		return "succes";
-		
-		
-		//ruilverzoeken/{id}/{inhoud}/{verztaak}/{ontvtaak}/{verzbewoner/{ontvbewoner}
 	}
 	
+	//Taak omruilen
 	@PUT
 	@Path("/takenruilen/{ruilverzoekid}/{verzId}/{verzTaakId}/{ontvId}/{ontvTaakId}")
 	public String ruilTaakOm(
@@ -296,22 +284,28 @@ public class AfdelingResource {
 			@PathParam("ontvTaakId") int ontvTaakId){
 	HuisService service = ServiceProvider.getHuisService();
 	service.taakRuilen(verzId, verzTaakId, ontvId, ontvTaakId);
+	//het geaccepteerde ruilverzoek verwijderen
 	service.deleteRuilverzoek(ruilverzoekId);
+	
+	//alle ruilverzoeken die iets te maken hebben met de verzTaak en ontvTaak verwijderen
+	//om errors te voorkomen, een taak die net geruild is mag niet in een bestaand ruilverzoek
+	//blijven staan.
 	service.deleteRuilverzoekByTaak(verzTaakId, ontvTaakId);
 	return "succes";
 	}
 	
+	//taken weergeven per afdeling
 	@POST
 	@Path("/taken/{afdelingId}")
 	public String addTaak(
 			@PathParam("afdelingId") int afdelingId,
-			@FormParam("userId") int bewonerId,
 			@FormParam("naam") String naam,
 			@FormParam("datum") Date datum,
 			@FormParam("tijdstip") String tijdstip,
 			@FormParam("duur") int duur){
-	Taak newTaak = new Taak(0,naam, tijdstip, datum, "Nee", afdelingId, bewonerId, duur);
 	HuisService service = ServiceProvider.getHuisService();
+	Taak t = service.getMinsteTaken(afdelingId);
+	Taak newTaak = new Taak(0,naam, tijdstip, datum, "Nee", afdelingId, t.getBewonerId(), duur);
 	service.addTaak(newTaak);
 	return "succes";
 	}

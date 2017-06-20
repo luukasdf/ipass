@@ -1,7 +1,7 @@
 package nl.hu.v1ipass.ipass.model;
 
 import java.sql.Date;
-
+//klasse voor mogelijke ruilverzoeken
 public class RuilOptie {
 	private int taakid;
 	private int bewonerid;

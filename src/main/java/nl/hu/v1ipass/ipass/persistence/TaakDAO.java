@@ -68,7 +68,8 @@ public class TaakDAO extends BaseDAO {
 	public List<Taak> findAll() {
 		return SelectTaken("SELECT * FROM taak");
 	}
-
+	
+	//join tussen bewoner en taak
 	public List<Taak> findAllinclBewNaam(){
 		return SelectTaken2("select t.*, b.naam as bewonernaam from bewoner b join taak t on (b.persoonsnummer = t.bewonerid) order by bewonerid");
 	}
@@ -80,7 +81,7 @@ public class TaakDAO extends BaseDAO {
 	public Taak hoogsteID() {
 		return SelectTaken("select * from taak order by taakid desc;").get(0);
 	}
-	
+	//bewoner met de minste taken ophalen
 	public Taak minsteTaken(int afdel){
 	List<Taak> results = new ArrayList<Taak>();
 		try (Connection con = super.getConnection()) {

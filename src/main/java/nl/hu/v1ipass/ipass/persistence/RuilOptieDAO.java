@@ -35,7 +35,7 @@ public class RuilOptieDAO extends BaseDAO {
 
 		return results;
 	}
-
+	//join met bewoners om de bewoner Naam weer te geven in een dropdown menu.
 	public List<RuilOptie> findAll() {
 		return SelectRuilOpties(
 				"select taakid, bewonerid, b.afdelingid, t.datum, b.naam, t.tijdstip, t.naam as taaknaam from taak t join bewoner b on (t.bewonerid = b.persoonsnummer) where t.afgetekend = 'Nee';");

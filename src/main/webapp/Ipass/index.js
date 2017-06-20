@@ -5,6 +5,7 @@ function initpage(){
 	$("#welkomsbericht").html(datum);
 }
 
+//voor de home pagina, geeft de datum in de banner weer.
 function loadDate(){
 	var today = new Date();
 	var dd = today.getDate();

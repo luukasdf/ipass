@@ -30,7 +30,8 @@ public class AfdelingDAO extends BaseDAO {
 
 		return results;
 	}
-
+	
+	//alle afdelingen
 	public List<Afdeling> findAll() {
 		return selectAfdelingen("SELECT * FROM afdeling");
 	}

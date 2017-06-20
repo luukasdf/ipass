@@ -4,8 +4,10 @@ function initpage(){
 	var d1 = new Date()
 	var d2 = new Date()
 	agendaInladen(window.sessionStorage.getItem("userID"), d1, d2);
-	
 }
+
+//vult de juiste taak op de juiste plek in de tabel in.
+//is de taak afgetekend, dan zal deze doorgestreept weergegeven worden.
 function agendaInladen(userID, vandaag , vandaag2){	
 	$.get("restservices/huis/taken", function(data) {       
 	   $.each(data, function(k, v) {
@@ -15,92 +17,90 @@ function agendaInladen(userID, vandaag , vandaag2){
 		   if(v.afgetekend == 'Ja'){
 			  taak = "<s>" + taak + "</s>"
 		   }
-		   //var vandaag = new Date();
-		   //var vandaag2 = new Date();
 		   vandaag2 = getMonday(vandaag2);
 		   var firstday = vandaag = getMonday(vandaag)	   
 		   var lastday = vandaag2.setDate(vandaag2.getDate() + 6)
 		   lastday = new Date(lastday)
 		   if(d > firstday.setHours(0,0,0,0) && d.setHours(0,0,0,0) < lastday){
-	        if (v.bewonerID == userID){
-	        	if (d.getDay() == 1){
-	        		if (v.tijdstip == 'Ochtend'){
-	        			$("#maandagOchtend").append(taak+"<br>")
+			   if (v.bewonerID == userID){
+		        	if (d.getDay() == 1){
+		        		if (v.tijdstip == 'Ochtend'){
+		        			$("#maandagOchtend").append(taak+"<br>")
+			        	}
+			        	if (v.tijdstip == 'Middag'){
+			        		$("#maandagMiddag").append(taak+"<br>")
+			        	}
+			        	if (v.tijdstip == 'Avond'){
+			        		$("#maandagAvond").append(taak+"<br>")
+			        	}
 		        	}
-		        	if (v.tijdstip == 'Middag'){
-		        		$("#maandagMiddag").append(taak+"<br>")
+		        	if (d.getDay() == 2){
+		        		if (v.tijdstip == 'Ochtend'){
+		        			$("dinsdagOchtend").append(taak+"<br>")
+			        	}
+			        	if (v.tijdstip == 'Middag'){
+			        		$("#dinsdagMiddag").append(taak+"<br>")
+			        	}
+			        	if (v.tijdstip == 'Avond'){
+			        		$("#dinsdagAvond").append(taak+"<br>")
+			        	}
 		        	}
-		        	if (v.tijdstip == 'Avond'){
-		        		$("#maandagAvond").append(taak+"<br>")
+		        	if (d.getDay() == 3){
+		        		if (v.tijdstip == 'Ochtend'){
+		        			$("woensdagOchtend").append(taak+"<br>")
+			        	}
+			        	if (data[k].tijdstip == 'Middag'){
+			        		$("#woensdagMiddag").append(taak+"<br>")
+			        	}
+			        	if (v.tijdstip == 'Avond'){
+			        		$("#woensdagAvond").append(taak+"<br>")
+			        	}
 		        	}
-	        	}
-	        	if (d.getDay() == 2){
-	        		if (v.tijdstip == 'Ochtend'){
-	        			$("dinsdagOchtend").append(taak+"<br>")
+		        	if (d.getDay() == 4){
+		        		if (v.tijdstip == 'Ochtend'){
+		        			$("donderdagOchtend").append(taak+"<br>")
+			        	}
+			        	if (v.tijdstip == 'Middag'){
+			        		$("#donderdagMiddag").append(taak+"<br>")
+			        	}
+			        	if (v.tijdstip == 'Avond'){
+			        		$("#donderdagAvond").append(taak+"<br>")
+			        	}
 		        	}
-		        	if (v.tijdstip == 'Middag'){
-		        		$("#dinsdagMiddag").append(taak+"<br>")
+		        	if (d.getDay() == 5){
+		        		if (v.tijdstip == 'Ochtend'){
+		        			$("vrijdagOchtend").append(taak+"<br>")
+			        	}
+			        	if (v.tijdstip == 'Middag'){
+			        		$("#vrijdagMiddag").append(taak+"<br>")
+			        	}
+			        	if (v.tijdstip == 'Avond'){
+			        		$("#vrijdagAvond").append(taak+"<br>")
+			        	}
 		        	}
-		        	if (v.tijdstip == 'Avond'){
-		        		$("#dinsdagAvond").append(taak+"<br>")
+		        	if (d.getDay() == 6){
+		        		if (v.tijdstip == 'Ochtend'){
+		        			$("zaterdagOchtend").append(taak+"<br>")
+			        	}
+			        	if (v.tijdstip == 'Middag'){
+			        		$("#zaterdagMiddag").append(taak+"<br>")
+			        	}
+			        	if (v.tijdstip == 'Avond'){
+			        		$("#zaterdagAvond").append(taak+"<br>")
+			        	}
 		        	}
-	        	}
-	        	if (d.getDay() == 3){
-	        		if (v.tijdstip == 'Ochtend'){
-	        			$("woensdagOchtend").append(taak+"<br>")
+		        	if (d.getDay() == 0){
+		        		if (v.tijdstip == 'Ochtend'){
+		        			$("zondagOchtend").append(taak+"<br>")
+			        	}
+			        	if (v.tijdstip == 'Middag'){
+			        		$("#zondagMiddag").append(taak+"<br>")
+			        	}
+			        	if (v.tijdstip == 'Avond'){
+			        		$("#zondagAvond").append(taak+"<br>")
+			        	}
 		        	}
-		        	if (data[k].tijdstip == 'Middag'){
-		        		$("#woensdagMiddag").append(taak+"<br>")
-		        	}
-		        	if (v.tijdstip == 'Avond'){
-		        		$("#woensdagAvond").append(taak+"<br>")
-		        	}
-	        	}
-	        	if (d.getDay() == 4){
-	        		if (v.tijdstip == 'Ochtend'){
-	        			$("donderdagOchtend").append(taak+"<br>")
-		        	}
-		        	if (v.tijdstip == 'Middag'){
-		        		$("#donderdagMiddag").append(taak+"<br>")
-		        	}
-		        	if (v.tijdstip == 'Avond'){
-		        		$("#donderdagAvond").append(taak+"<br>")
-		        	}
-	        	}
-	        	if (d.getDay() == 5){
-	        		if (v.tijdstip == 'Ochtend'){
-	        			$("vrijdagOchtend").append(taak+"<br>")
-		        	}
-		        	if (v.tijdstip == 'Middag'){
-		        		$("#vrijdagMiddag").append(taak+"<br>")
-		        	}
-		        	if (v.tijdstip == 'Avond'){
-		        		$("#vrijdagAvond").append(taak+"<br>")
-		        	}
-	        	}
-	        	if (d.getDay() == 6){
-	        		if (v.tijdstip == 'Ochtend'){
-	        			$("zaterdagOchtend").append(taak+"<br>")
-		        	}
-		        	if (v.tijdstip == 'Middag'){
-		        		$("#zaterdagMiddag").append(taak+"<br>")
-		        	}
-		        	if (v.tijdstip == 'Avond'){
-		        		$("#zaterdagAvond").append(taak+"<br>")
-		        	}
-	        	}
-	        	if (d.getDay() == 0){
-	        		if (v.tijdstip == 'Ochtend'){
-	        			$("zondagOchtend").append(taak+"<br>")
-		        	}
-		        	if (v.tijdstip == 'Middag'){
-		        		$("#zondagMiddag").append(taak+"<br>")
-		        	}
-		        	if (v.tijdstip == 'Avond'){
-		        		$("#zondagAvond").append(taak+"<br>")
-		        	}
-	        	}
-	         }
+		         }
 	        }
 	   });
 })	    
@@ -112,6 +112,7 @@ function agendaInladen(userID, vandaag , vandaag2){
 	}	
 }
 
+//maakt de tabel leeg.
 function clearTable(){
 	$("#maandagOchtend").html("")
 	$("#maandagMiddag").html("")
@@ -142,6 +143,7 @@ function clearTable(){
 	$("#zondagAvond").html("")
 }
 
+//geeft de tabel bij de ingevoerde datum
 $("#weekVeranderen").click(function(){
 	if ($("#date").val() != ""){
 		$("#welkomsbericht").html("<b>Agenda overzicht, uw taken in de week van: " + $("#date").val() + "</b>")

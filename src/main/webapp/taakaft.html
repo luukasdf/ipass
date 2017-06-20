@@ -77,23 +77,6 @@
 
 	<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
 	<script src="Ipass/taakAFT.js"></script>
-	<script>
-		$("#verderBTN").click(function(){	
-			if ($("#taakID").val() != ""){
-				var uri = "restservices/huis/takenaftekenen/" + $("#taakID").val();
-			    $.ajax(uri, { 
-			        type: "put",  
-			        success: function(response) {
-			            $("#response").text("taak is afgetekend!");
-			        },
-			    });	    
-			    $("#taakID").find('option:selected', this).remove()
-			}
-			if ($("#taakID").val() == ""){
-				$("#response").text("Er is geen taak geselecteerd");
-			}
-		});
-	</script>
 	<script src="Ipass/basicScript.js"></script>
 	
 </body>

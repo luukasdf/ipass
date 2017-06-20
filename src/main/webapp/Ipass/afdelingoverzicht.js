@@ -3,28 +3,9 @@ window.onload=initpage
 function initpage(){
 	alleJongens(window.sessionStorage.getItem("userID"), window.sessionStorage.getItem("afdelingID"))
 	stouteJongens(window.sessionStorage.getItem("userID"), window.sessionStorage.getItem("afdelingID"))
-	//overzichtWeergeven(window.sessionStorage.getItem("userID"), window.sessionStorage.getItem("afdelingID"))
-}
-	
-function overzichtWeergeven(userID, afdelingID){
-	var bruikbareTaken = []
-	var bewonerIds=  []
-	$.get("restservices/huis/takenjoin", function(data) {
-		$.each(data, function(k, v){
-			if (v.afdelingID == afdelingID){						
-				if (bewonerIds.indexOf(v.bewonerID) == -1){
-					bewonerIds.push(v.bewonerID);
-				}
-				
-			}
-		});
-		
-		
-		console.log(bewonerIds)
-				
-	});    
 }
 
+//laat alle bewoners zien in een overzicht die een taak in het verleden niet hebben afgetekend
 function stouteJongens(userID, afdelingID){
 	$.get("restservices/huis/bewonersnietaf", function(data){
 		$.each(data, function(k,v){
@@ -36,7 +17,7 @@ function stouteJongens(userID, afdelingID){
 		})
 	})
 }
-
+//laat alle bewoners zien, en hun geplande duur.
 function alleJongens(userID, afdelingID){
 	$.get("restservices/huis/bewonersduur", function(data){
 		$.each(data, function(k,v){
