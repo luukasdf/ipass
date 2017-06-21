@@ -7,7 +7,7 @@ function initpage(){
 function takenWeergeven(userID, afdelingID){
 	$.get("restservices/huis/taken", function(data) {    
 		var vandaag = new Date;
-		vandaag.setDate(vandaag.getDate()-1);
+		vandaag.setHours(0,0,0,0);
 		var ruilTaken = [];
 		$.each(data, function(k, v) {
 			if (new Date(v.datum) > vandaag && v.afgetekend == 'Nee' && v.bewonerID == userID){

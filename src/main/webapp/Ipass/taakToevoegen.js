@@ -25,7 +25,7 @@ $("#toevBTN").click(function(){
 	var uri = "restservices/huis/taken/"+window.sessionStorage.getItem("afdelingID");
 	if ($("#naam").val() != "" && $("#date").val() != "" && $("#duur").val() != "" && d > newD){
 		$.post(uri, data, function(response) {
-			$("#response").text("Taak added!");
+			$("#response").text("Taak toegevoegd!");
 	    }); 
 	}
 	//checken of de verstrekte informatie correct is
